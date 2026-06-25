@@ -14,11 +14,10 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-    const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm', '');
-    const [professionFilter, setProfessionFilter] =
-        useLocalStorage('professionFilter', 'All');
-    const [favorites, setFavorites] = useLocalStorage('favorites', []);
-    const [theme, setTheme] = useLocalStorage('theme', 'light');
+    const [searchTerm, setSearchTerm] = useLocalStorage<string>('searchTerm', '');
+    const [professionFilter, setProfessionFilter] = useLocalStorage<string>('professionFilter', 'All');
+    const [favorites, setFavorites] = useLocalStorage<number[]>('favorites',[]);
+    const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme','light'); // explicitly enforce only 'light' or 'dark'
 
     const toggleTheme = () => {
         setTheme(prev => (prev === 'light' ? 'dark' : 'light'));

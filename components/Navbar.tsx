@@ -12,13 +12,13 @@ export default function Navbar() {
 
       <ul className="nav-links">
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/">home</Link>
         </li>
         <li>
-          <Link href="/about">About</Link>
+          <Link href="/about">about</Link>
         </li>
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact">contact</Link>
         </li>
       </ul>
 

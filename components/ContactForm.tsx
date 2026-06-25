@@ -2,35 +2,29 @@
 
 import { useState, FormEvent } from 'react';
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
-
 export default function ContactForm() {
   const [result, setResult] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validate = (formData: FormData): FormErrors => {
-    const newErrors: FormErrors = {};
+  const validate = (formData: FormData): Record<string, string> => {
+    const newErrors: Record<string, string> = {};
 
-    const name = formData.get('name')?.toString() || '';
-    const email = formData.get('email')?.toString() || '';
-    const message = formData.get('message')?.toString() || '';
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const message = formData.get('message') as string;
 
-    if (name.trim().length < 2) {
+    if (!name || name.trim().length < 2) {
       newErrors.name = 'Name must be at least 2 characters long';
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
+    if (!email || !emailRegex.test(email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (message.trim().length < 10) {
+    if (!message || message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters long';
     }
 
@@ -41,7 +35,6 @@ export default function ContactForm() {
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-
     setResult('');
 
     const form = event.currentTarget;
@@ -57,10 +50,10 @@ export default function ContactForm() {
     setErrors({});
     setIsSubmitting(true);
 
-    formData.append(
-      'access_key',
-      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? ''
-    );
+    const accessKey =
+      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || '';
+
+    formData.append('access_key', accessKey);
 
     try {
       const response = await fetch(
@@ -81,11 +74,14 @@ export default function ContactForm() {
         form.reset();
       } else {
         setResult(
-          data.message || 'Something went wrong. Please try again.'
+          data.message ||
+            'Something went wrong. Please try again.'
         );
       }
     } catch {
-      setResult('Network error. Please check your connection.');
+      setResult(
+        'Network error. Please check your connection.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -108,7 +104,9 @@ export default function ContactForm() {
           />
 
           {errors.name && (
-            <span className="error-text">{errors.name}</span>
+            <span className="error-text">
+              {errors.name}
+            </span>
           )}
         </div>
 
@@ -126,7 +124,9 @@ export default function ContactForm() {
           />
 
           {errors.email && (
-            <span className="error-text">{errors.email}</span>
+            <span className="error-text">
+              {errors.email}
+            </span>
           )}
         </div>
 
@@ -148,7 +148,9 @@ export default function ContactForm() {
           />
 
           {errors.message && (
-            <span className="error-text">{errors.message}</span>
+            <span className="error-text">
+              {errors.message}
+            </span>
           )}
         </div>
 
