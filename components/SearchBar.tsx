@@ -48,10 +48,13 @@ export default function SearchBar(){
           }
         >
           <option value="All">All Professions</option>
-          <option value="physicist and chemist">
-            Physicist &amp; Chemist
-          </option>
+          <option value="physicist and chemist">Physicist &amp; Chemist</option>
           <option value="geochemist">Geochemist</option>
+          <option value="theoretical physicist">theoretical physicist</option>
+          <option value="physicist">Physicist</option>
+          <option value="physicist and astronomer">physicist &amp; astronomer</option>
+          <option value="nuclear physicist">nuclear physicist</option>
+          <option value="mathematician">mathematician</option>
         </select>
       </div>
     </div>

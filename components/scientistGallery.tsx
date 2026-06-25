@@ -31,7 +31,7 @@ export default function ScientistGallery({
           ))
         ) : (
           <p className="no-results">
-            No scientists found matching your criteria.
+            no scientists found matching your criteria.
           </p>
         )}
       </div>

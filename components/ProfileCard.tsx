@@ -56,7 +56,7 @@ export default function ProfileCard({
         className={`fav-button ${isFavorite ? 'is-fav' : ''}`}
         onClick={() => toggleFavorite(scientist.id)}
       >
-        {isFavorite ? '❤️ Favorited' : '🤍 Add to Favorites'}
+        {isFavorite ? '❤️ favorited' : '🤍 add to favorites'}
       </button>
     </section>
   );

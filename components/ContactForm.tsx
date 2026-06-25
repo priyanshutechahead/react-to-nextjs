@@ -15,17 +15,17 @@ export default function ContactForm() {
     const message = formData.get('message') as string;
 
     if (!name || name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters long';
+      newErrors.name = 'type your full name sir';
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email || !emailRegex.test(email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = 'invalid email. type your correct one';
     }
 
     if (!message || message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters long';
+      newErrors.message = 'at least type one paragraph for me. its too short  😅😅';
     }
 
     return newErrors;
@@ -70,17 +70,17 @@ export default function ContactForm() {
       } = await response.json();
 
       if (data.success) {
-        setResult('Message sent successfully!');
+        setResult('message sent successfully');
         form.reset();
       } else {
         setResult(
           data.message ||
-            'Something went wrong. Please try again.'
+            'something went wrong. please try again. fix the error yourself'
         );
       }
     } catch {
       setResult(
-        'Network error. Please check your connection.'
+        'network error. please check your internet connection.'
       );
     } finally {
       setIsSubmitting(false);
@@ -91,7 +91,7 @@ export default function ContactForm() {
     <div className="contact-form-container">
       <form onSubmit={onSubmit} className="contact-form">
         <div className="input-group">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">your name</label>
 
           <input
             type="text"
@@ -100,7 +100,7 @@ export default function ContactForm() {
             className={`search-bar ${
               errors.name ? 'input-error' : ''
             }`}
-            placeholder="Your Name"
+            placeholder="your name"
           />
 
           {errors.name && (
@@ -111,7 +111,7 @@ export default function ContactForm() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">email</label>
 
           <input
             type="email"
@@ -120,7 +120,7 @@ export default function ContactForm() {
             className={`search-bar ${
               errors.email ? 'input-error' : ''
             }`}
-            placeholder="your.email@example.com"
+            placeholder="youremail@example.com"
           />
 
           {errors.email && (
@@ -131,7 +131,7 @@ export default function ContactForm() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="message">Message</label>
+          <label htmlFor="message">message</label>
 
           <textarea
             id="message"
@@ -139,7 +139,7 @@ export default function ContactForm() {
             className={`search-bar ${
               errors.message ? 'input-error' : ''
             }`}
-            placeholder="How can we help you?"
+            placeholder="any meaagae for me? type here..."
             rows={5}
             style={{
               borderRadius: '15px',
